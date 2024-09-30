@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина</title>
+    <link rel="stylesheet" href="../public/styles/main.css">
+</head>
+<body>
+    <header>
+        <h1>Ваша корзина</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="catalog.html">Каталог</a></li>
+                <li><a href="cart.html">Корзина</a></li>
+                <li><a href="contact.html">Контакты</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section>
+        <h2>Содержимое вашей корзины</h2>
+        <div id="cart-items">
+            <!-- Здесь будут отображаться товары из корзины -->
+        </div>
+        <p><strong>Итоговая сумма:</strong> <span id="total-price">0</span> ₽</p>
+
+        <!-- Форма для оформления заказа -->
+        <h3>Оформление заказа</h3>
+        <form id="order-form">
+            <label for="name">Ваше имя:</label>
+            <input type="text" id="name" name="name" placeholder="Введите имя" required><br>
+
+            <label for="address">Адрес доставки:</label>
+            <input type="text" id="address" name="address" placeholder="Введите адрес" required><br>
+
+            <label for="phone">Телефон:</label>
+            <input type="tel" id="phone" name="phone" placeholder="Введите телефон" required><br>
+
+            <button type="submit">Оформить заказ</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Магазин одежды. Все права защищены.</p>
+    </footer>
+
+    <script src="../utils/cartFunctions.js"></script>
+</body>
+</html>

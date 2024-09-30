@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Избранное</title>
+    <link rel="stylesheet" href="../public/styles/main.css">
+</head>
+<body>
+    <header>
+        <h1>Ваше избранное</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="catalog.html">Каталог</a></li>
+                <li><a href="wishlist.html">Избранное</a></li>
+                <li><a href="cart.html">Корзина</a></li>
+                <li><a href="wishlist.html">Избранное</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+
+    <section>
+        <h2>Ваши избранные товары</h2>
+        <div id="wishlist-items">
+            <!-- Товары из избранного будут загружены сюда -->
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Магазин одежды. Все права защищены.</p>
+    </footer>
+
+    <script>
+        function loadWishlist() {
+            const wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+            const wishlistItemsContainer = document.getElementById('wishlist-items');
+
+            wishlistItemsContainer.innerHTML = '';  // Очищаем контейнер перед загрузкой
+
+            if (wishlist.length === 0) {
+                wishlistItemsContainer.innerHTML = '<p>У вас нет избранных товаров.</p>';
+            } else {
+                wishlist.forEach((product, index) => {
+                    const item = document.createElement('div');
+                    item.innerHTML = `
+                        <p>${product.name} - ${product.price} ₽</p>
+                        <button onclick="removeFromWishlist(${index})">Удалить из избранного</button>
+                    `;
+                    wishlistItemsContainer.appendChild(item);
+                });
+            }
+        }
+
+        // Функция для удаления товара из избранного
+        function removeFromWishlist(index) {
+            let wishlist = JSON.parse(localStorage.getItem('wishlist')) || [];
+            wishlist.splice(index, 1);  // Удаляем товар из списка
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+            loadWishlist();  // Обновляем отображение избранного
+            showNotification('Товар удалён из избранного.', 'success');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadWishlist();  // Загружаем товары из избранного при загрузке страницы
+        });
+    </script>
+    <div id="notification" class="notification"></div>
+</body>
+</html>

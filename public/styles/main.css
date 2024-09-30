@@ -1,0 +1,970 @@
+body {
+    font-family: 'Montserrat', sans-serif;  /* Используем более современный шрифт */
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(135deg, #f7c14e9a, #ffffff);  /* Градиентный фон */
+    color: #000000;  /* Тёмный текст для контраста */
+}
+
+header {
+    background: linear-gradient(135deg, #000000, #2e456b);  /* Яркий градиент для шапки */
+    color: white;
+    padding: 30px 0;
+    text-align: center;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);  /* Более глубокая тень */
+    border-bottom: 5px solid #2575fc;  /* Добавим акцент */
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    margin: 0 20px;
+}
+
+nav ul li a {
+    color: white;
+    font-weight: 600;
+    font-size: 1.2em;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #ffdd00;  /* Яркий жёлтый при наведении */
+    transform: scale(1.1);  /* Лёгкое увеличение при наведении */
+}
+
+footer {
+    background: linear-gradient(135deg, #6a11cb, #2575fc);  /* Яркий градиент для футера */
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    box-shadow: 0 -8px 15px rgba(0, 0, 0, 0.2);  /* Глубокая тень сверху */
+}
+
+.product-grid {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 50px 0;
+    padding: 0 20px;
+}
+
+.product-card {
+    border: 0;
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    width: 260px;
+    background: linear-gradient(135deg, #ff416c, #ff4b2b);  /* Градиентный фон для карточек товаров */
+    color: white;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);  /* Плавная тень */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-15px);  /* Более ярко выраженный эффект подъёма карточки */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);  /* Увеличиваем тень */
+}
+
+.product-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.product-card h3 {
+    margin-top: 15px;
+    font-size: 1.8em;
+    color: white;
+}
+
+.product-card p {
+    font-size: 1.2em;
+    color: #ffebeb;
+}
+
+.product-card button {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background-color: #ffdd00;
+    color: #333;
+    border: none;
+    cursor: pointer;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.product-card button:hover {
+    background-color: #ffd700;
+    transform: scale(1.1);  /* Более ярко выраженное увеличение кнопки */
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #6a11cb;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: #2575fc;
+    transform: scale(1.05);
+}
+
+/* Стили для фильтров */
+section h2 {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #444;
+}
+
+input[type="text"], input[type="number"] {
+    padding: 12px;
+    width: 300px;
+    margin-bottom: 25px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    font-size: 1.1em;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus, input[type="number"]:focus {
+    outline: none;
+    border-color: #2575fc;
+}
+
+/* Уведомления */
+.notification {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #444;
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: none;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out, bottom 0.3s ease-in-out;
+}
+
+.notification.show {
+    display: block;
+    opacity: 1;
+    bottom: 40px;
+}
+
+.notification.success {
+    background-color: #00b894;
+}
+
+.notification.error {
+    background-color: #d63031;
+}
+/* Анимация появления */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Анимация исчезновения */
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+/* Добавим стили для элементов корзины */
+.product-card {
+    animation: fadeIn 0.4s ease;  /* Анимация появления товаров */
+}
+
+/* Анимация для кнопок */
+button {
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: #ff9800;  /* Изменение цвета кнопки при наведении */
+    transform: scale(1.05);     /* Лёгкое увеличение кнопки при наведении */
+}
+
+/* Уведомления с анимацией */
+.notification {
+    opacity: 0;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #333;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    z-index: 1000;
+    animation: fadeIn 0.5s ease;
+}
+
+.notification.show {
+    opacity: 1;
+}
+
+.notification.fadeout {
+    animation: fadeOut 0.5s ease forwards;
+}
+/* Кнопки */
+button {
+    background-color: #ff9800;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1em;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: #e67e22;  /* Темнее при наведении */
+    transform: scale(1.05);     /* Увеличение кнопки */
+}
+
+button:active {
+    transform: scale(0.95);     /* Уменьшение при нажатии */
+    background-color: #d35400;
+}
+/* Стили для поиска и фильтрации */
+input[type="text"], input[type="number"] {
+    padding: 10px;
+    margin-bottom: 20px;
+    width: 250px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+/* Стили для сетки товаров */
+.product-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.product-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    width: 200px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+}
+
+.product-card button {
+    margin-top: 10px;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.product-card button:hover {
+    background-color: #555;
+}
+/* Стили для формы заказа */
+form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input {
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #218838;
+}
+/* Основные стили для слайдера */
+.slider {
+    position: relative;
+    max-width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+
+.slide {
+    display: none;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transition: opacity 1s ease-in-out;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Показываем активный слайд */
+.slide.active {
+    display: block;
+    opacity: 1;
+}
+
+/* Кнопки для управления слайдером */
+button.prev, button.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    padding: 10px;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+button.prev {
+    left: 10px;
+}
+
+button.next {
+    right: 10px;
+}
+
+button.prev:hover, button.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+
+/* Основной контейнер */
+.main-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+}
+
+.main-image-container {
+    width: 60%;
+    text-align: center;
+}
+
+#main-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.slider-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.thumbnail {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.thumbnail img {
+    width: 100px;
+    height: auto;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.3s ease;
+}
+
+.thumbnail img:hover {
+    border-color: #ff9800;
+}
+
+.hidden-images {
+    display: none;  /* Эти изображения будут скрыты */
+}
+
+.thumbnail .original-btn {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.thumbnail .original-btn:hover {
+    background-color: #218838;
+}
+
+/* Инструкции */
+#instructions {
+    text-align: center;
+    margin-top: 30px;
+}
+
+#scroll-icon {
+    margin-top: 10px;
+}
+
+#scroll-icon .arrow {
+    width: 20px;
+    height: 20px;
+    border-right: 2px solid #000;
+    border-bottom: 2px solid #000;
+    transform: rotate(45deg);
+    margin: 10px auto;
+    animation: scroll 1.5s infinite;
+}
+
+@keyframes scroll {
+    0% { opacity: 1; transform: rotate(45deg) translateY(0); }
+    100% { opacity: 0; transform: rotate(45deg) translateY(20px); }
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+slider-page {
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: #ffe5e5;
+}
+
+header {
+    background-color: #323232;
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header-left {
+    justify-content: space-between;
+}
+
+.header-center {
+    justify-content: center;
+}
+
+.site-name {
+    font-size: 24px;
+    margin: 0 20px;
+    color: #000000;
+}
+
+.navigation-menu {
+    display: flex;
+    gap: 40px; /* Расстояние между разделами */
+}
+
+.navigation-menu a {
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+}
+
+.navigation-menu a:hover {
+    text-decoration: underline;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown-content a:hover {
+    background-color: red
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+
+.dropdown:hover .dropdown-content {
+    display: block;
+    top: 100%; /* Под меню */
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+main {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+}
+
+h1 {
+   
+        font-family: 'Arial', sans-serif; /* Устанавливаем шрифт */
+        font-size: 50px; /* Устанавливаем размер шрифта */
+        margin: 20px 10px; /* Верхний и нижний отступы по 20px, левый и правый по 10px */
+        padding: 10px; /* Внутренние отступы */
+        color: #333; /* Цвет текста */
+    
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.big-button {
+    padding: 20px 40px;
+    font-size: 18px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.big-button:hover {
+    background-color: #ff0000;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+footer {
+    background-color: #ff8686;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+.big-button {
+    padding: 20px 40px;
+    font-size: 18px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.big-button:hover {
+    background-color: #555;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+
+
+.main-container {
+    flex: 1;
+    text-align: center;
+    padding: 20px;
+}
+
+.main-image-container {
+    margin-bottom: 20px;
+}
+
+#main-image {
+    width: 100%;
+    height: auto;
+    max-width: 600px;
+    max-height: 600px;
+    object-fit: cover;
+    border: 5px solid #000000;
+}
+
+.slider-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.thumbnail {
+    margin: 5px;
+    position: relative;
+}
+
+.thumbnail img {
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    object-fit: cover;
+}
+
+.thumbnail.selected-thumbnail img {
+    border: 5px solid #ff0000;
+}
+
+.hidden-images {
+    display: none;
+}
+
+footer {
+    background-color: #d32e2e;
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+}
+
+.footer-content p {
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    .thumbnail img {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+@media (max-width: 480px) {
+    .thumbnail img {
+        width: 60px;
+        height: 60px;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navigation-menu {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .navigation-menu a {
+        margin: 5px 0;
+    }
+}
+
+#instructions {
+    
+    
+   
+  
+    font-size: 30px;
+    color: #000000;
+    text-align: center;
+}
+
+#scroll-icon {
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.arrow {
+    width: 15px;
+    height: 15px;
+    border-right: 2px solid #ff0000;
+    border-bottom: 2px solid #ff0000;
+    transform: rotate(45deg);
+    margin: -3px;
+    animation: bounce 2s infinite;
+}
+
+.arrow:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.arrow:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0) rotate(45deg);
+    }
+    40% {
+        transform: translateY(-10px) rotate(45deg);
+    }
+    60% {
+        transform: translateY(-5px) rotate(45deg);
+    }
+}
+
+@media (max-width: 480px) {
+    .thumbnail img {
+        width: 60px;
+        height: 60px;
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .navigation-menu {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .navigation-menu a {
+        margin: 5px 0;
+    }
+}
+
+/* Основной стиль для кнопки "Открыть оригинал" */
+.open-original-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background-color: #333;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.open-original-btn:hover {
+    background-color: #555;
+}
+
+/* Tooltip для кнопки */
+.open-original-btn .tooltip {
+    display: none;
+    position: absolute;
+    bottom: 50px;
+    background-color: #333;
+    color: white;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.open-original-btn:hover .tooltip {
+    display: block;
+}
+
+/* Добавляем иконку для кнопки */
+.open-original-btn::before {
+    content: '⬆'; /* Или замените на любую подходящую иконку */
+    font-size: 16px;
+    color: white;
+}
+/* Плавающая кнопка */
+#floating-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 1000;
+}
+
+#floating-btn:hover {
+    background-color: #555;
+}
+
+/* Основные стили */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+header {
+    background-color: #323232;
+    color: white;
+    padding: 10px 20px;
+}
+
+.navigation-menu {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+/* Основное изображение */
+.main-container {
+    text-align: center;
+    margin: 20px;
+}
+
+.main-image-container {
+    margin-bottom: 20px;
+}
+
+#main-image {
+    max-width: 100%;
+    max-height: 10000px;
+    border: 3px solid #ddd;
+}
+
+/* Миниатюры */
+.slider-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.thumbnail img {
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+    border: 2px solid #ddd;
+}
+
+.thumbnail:hover img {
+    border-color: #333;
+}
+
+/* Стили для инструкций */
+#instructions {
+    margin-top: 20px;
+    font-size: 18px;
+    color: #666;
+}}
+
+
+
+
+
+
+
+
+

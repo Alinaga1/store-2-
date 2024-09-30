@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Оформление заказа</title>
+    <link rel="stylesheet" href="../public/styles/main.css">
+</head>
+<body>
+    <header>
+        <h1>Оформление заказа</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Главная</a></li>
+                <li><a href="catalog.html">Каталог</a></li>
+                <li><a href="cart.html">Корзина</a></li>
+                <li><a href="checkout.html">Оформление заказа</a></li>
+                <li><a href="contact.html">Контакты</a></li>
+                <li><a href="wishlist.html">Избранное</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section>
+        <h2>Ваши товары</h2>
+        <div id="cart-items">
+            <!-- Здесь будет выводиться содержимое корзины -->
+        </div>
+        <p><strong>Итоговая сумма:</strong> <span id="total-price">0</span> ₽</p>
+    </section>
+
+    <section>
+        <h2>Данные для доставки</h2>
+        <form id="checkout-form">
+            <label for="name">Имя:</label>
+            <input type="text" id="name" name="name" required><br>
+
+            <label for="email">Электронная почта:</label>
+            <input type="email" id="email" name="email" required><br>
+
+            <label for="address">Адрес доставки:</label>
+            <input type="text" id="address" name="address" required><br>
+
+            <button type="submit">Подтвердить заказ</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Магазин одежды. Все права защищены.</p>
+    </footer>
+
+    <script src="../utils/cartFunctions.js"></script>
+    <script>
+        document.getElementById('checkout-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    showNotification('Ваш заказ успешно оформлен!', 'success');  // Уведомление
+    localStorage.removeItem('cart');  // Очищаем корзину
+    setTimeout(() => {
+        window.location.href = 'index.html';  // Перенаправляем на главную страницу через 3 секунды
+    }, 3000);
+});
+
+        // Функция для загрузки товаров из корзины и отображения на странице оформления заказа
+        function displayCartItems() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const cartItemsContainer = document.getElementById('cart-items');
+            const totalPriceElement = document.getElementById('total-price');
+            let totalPrice = 0;
+
+            cartItemsContainer.innerHTML = '';  // Очищаем содержимое перед отображением
+
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p>Корзина пуста</p>';
+            } else {
+                cart.forEach((product) => {
+                    const item = document.createElement('div');
+                    item.innerHTML = `
+                        <p>${product.name} - ${product.price} ₽ x ${product.quantity}</p>
+                    `;
+                    cartItemsContainer.appendChild(item);
+                    totalPrice += product.price * product.quantity;
+                });
+            }
+
+            totalPriceElement.textContent = totalPrice;  // Выводим итоговую сумму
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            displayCartItems();  // Отображаем товары при загрузке страницы
+
+            // Обработка формы заказа
+            document.getElementById('checkout-form').addEventListener('submit', function(event) {
+                event.preventDefault();
+                alert('Ваш заказ оформлен! Спасибо за покупку.');
+                localStorage.removeItem('cart');  // Очищаем корзину после оформления заказа
+                window.location.href = 'index.html';  // Перенаправляем на главную страницу после оформления заказа
+            });
+        });
+    </script>
+    <div id="notification" class="notification"></div>
+
+</body>
+</html>
